@@ -4,40 +4,44 @@ import static io.restassured.RestAssured.given;
 
 
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 
 import java.util.Map;
 
 //базовый клиент - родитель
 public class BaseHttpClient {
 
-    public final String baseUrl = "http://qa-scooter.praktikum-services.ru";
+   // public final String baseUrl = "http://qa-scooter.praktikum-services.ru";
     private final String JSON = "application/json";
 
+    //базовая спецификация запроса
+    private RequestSpecification requestSpec = given()
+            .baseUri("http://qa-scooter.praktikum-services.ru")
+            .header("Content-Type", JSON);
+
+
     protected Response doGetRequest (String uri) {
-        return given().header("Content-Type", JSON).get(uri);
+        return requestSpec
+                .get(uri);
     }
 
     protected Response doPostRequest (String uri, Object object) {
-        return given()
-                .header("Content-Type", JSON)
+        return  requestSpec
                 .and()
                 .body(object)
                 .when()
                 .post(uri);
     }
 
-    protected Response doDelRequest (String uri) {
-
-        return given()
-                .header("Content-Type", JSON)
+    /*protected Response doDelRequest (String uri) {
+        return  requestSpec
                 .delete(uri);
-    }
+    }*/
 
     protected Response doDelRequest (String nameParam, Long id, String uri) {
-
-        return given()
-                .header("Content-Type", JSON)
+        return  requestSpec
                 .body(Map.of(nameParam, id))
                 .delete(uri, id);
     }
+
 }

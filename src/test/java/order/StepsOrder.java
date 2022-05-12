@@ -1,12 +1,13 @@
 package order;
 
+import io.qameta.allure.Step;
 import model.Order;
 
 import java.util.List;
 
 public class StepsOrder {
 
-    //шаг "Создать конкретный заказ"
+    @Step ("Создать конкретный заказ")
     public Order createExampleOrder(List<String> color) {
         Order order = new Order();
 

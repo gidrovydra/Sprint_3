@@ -11,11 +11,11 @@ public class OrderApiClient extends BaseHttpClient {
     public String handleCreateOrder = "/api/v1/orders";
 
 
-    public Response createOrderAndReturnResponse(Order order) {
-        return doPostRequest(baseUrl + handleCreateOrder, order);
+    public Response getOrdersListAndReturnResponse() {
+        return (doGetRequest(handleListOrders));
     }
 
-    public Response getOrdersListAndReturnResponse() {
-        return (doGetRequest(baseUrl + handleListOrders));
+    public Response createOrderAndReturnResponse(Order order) {
+        return doPostRequest(handleCreateOrder, order);
     }
 }

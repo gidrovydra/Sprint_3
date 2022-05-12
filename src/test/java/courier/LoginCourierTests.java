@@ -3,6 +3,7 @@ package courier;
 import base.Data;
 import client.CourierApiClient;
 
+import io.qameta.allure.junit4.DisplayName;
 import org.apache.http.HttpStatus;
 import org.junit.After;
 import org.junit.Before;
@@ -31,7 +32,7 @@ public class LoginCourierTests {
     }
 
     @Test
-    //проверка корректного логина курьера в системе: проверям по статус коду и наличию id
+    @DisplayName("Корректный логин курьера в системе")
     public void checkAuthorization(){
          apiClient.loginCourierWithLoginPasswordAndReturnResponse(data.randomLoginCourier, data.randomPasswordCourier)
                 .then()
@@ -41,7 +42,7 @@ public class LoginCourierTests {
     }
 
     @Test
-    //проверка авторизации курера без логина
+    @DisplayName("Логин курьера без параметра Login")
     public void checkAuthorizationWithoutLogin(){
         apiClient.loginCourierWithLoginPasswordAndReturnResponse("", data.randomPasswordCourier)
                 .then()
@@ -51,7 +52,7 @@ public class LoginCourierTests {
     }
 
     @Test
-    //проверка авторизации курьера без пароля
+    @DisplayName("Логин курьера без параметра Password")
     public void checkAuthorizationWithoutPassword(){
         apiClient.loginCourierWithLoginPasswordAndReturnResponse( data.randomLoginCourier, "")
                 .then()
@@ -61,7 +62,7 @@ public class LoginCourierTests {
     }
 
     @Test
-    //проверка авторизации с некорректным логином
+    @DisplayName("Логин курьера с некоррекктным значением Login")
     public void checkAuthorizationWithIncorrectLogin(){
         apiClient.loginCourierWithLoginPasswordAndReturnResponse(data.randomLoginCourier+ data.randomPart, data.randomPasswordCourier)
                 .then()
@@ -71,7 +72,7 @@ public class LoginCourierTests {
     }
 
     @Test
-    //проверка авторизации с некорректным паролем
+    @DisplayName("Логин курьера с некоррекктным значением Password")
     public void checkAuthorizationWithIncorrectPassword(){
         apiClient.loginCourierWithLoginPasswordAndReturnResponse(data.randomLoginCourier, data.randomPasswordCourier + data.randomPart)
                 .then()
